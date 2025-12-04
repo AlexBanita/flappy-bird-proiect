@@ -22,8 +22,7 @@ namespace flappy_bird_proiect
 
         public void Update()
         {
-            if (!isTransitioning)
-                return;
+            if (!isTransitioning) return;
 
             Transition += direction * 0.02f;
 
@@ -41,8 +40,7 @@ namespace flappy_bird_proiect
 
         public void Toggle()
         {
-            if (isTransitioning)
-                return;
+            if (isTransitioning) return;
 
             direction = (Transition == 0f ? 1 : -1);
             isTransitioning = true;
@@ -60,12 +58,28 @@ namespace flappy_bird_proiect
             if (Transition > 0.05f)
             {
                 int alpha = (int)(Transition * 255);
+
                 using (SolidBrush starBrush = new SolidBrush(Color.FromArgb(alpha, 255, 255, 255)))
                 {
                     foreach (var s in stars)
                         g.FillEllipse(starBrush, s.X, s.Y, 3, 3);
                 }
+
+                DrawMoon(g, width, height, alpha);
             }
+        }
+
+        private void DrawMoon(Graphics g, int width, int height, int alpha)
+        {
+            int size = 80;
+            int x = width - size - 40;
+            int y = 40;
+
+            using (SolidBrush moon = new SolidBrush(Color.FromArgb(alpha, 255, 255, 200)))
+                g.FillEllipse(moon, x, y, size, size);
+
+            using (SolidBrush shade = new SolidBrush(Color.FromArgb(alpha, 200, 200, 200)))
+                g.FillEllipse(shade, x + 20, y + 15, size - 15, size - 15);
         }
 
         private Color LerpColor(Color a, Color b, float t)

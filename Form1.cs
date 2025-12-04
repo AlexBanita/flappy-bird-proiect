@@ -222,9 +222,12 @@ namespace flappy_bird_proiect
             int gap = 150;
             int topHeight = rnd.Next(50, 250);
 
-            pipeTop = new Rectangle(350, 0, 80, topHeight);
-            pipeBottom = new Rectangle(350, topHeight + gap, 80, Height);
+            int startX = this.ClientSize.Width; // poziția corectă pentru marginea dreaptă
+
+            pipeTop = new Rectangle(startX, 0, 80, topHeight);
+            pipeBottom = new Rectangle(startX, topHeight + gap, 80, this.ClientSize.Height);
         }
+
 
         private void GameLoop(object sender, EventArgs e)
         {
